@@ -1,6 +1,9 @@
 ChangeLog of PermLib
 -----------------------
 
+v0.2.8:
+fix compiler error (thanks to Jerry James for the report and patch)
+
 v0.2.7:
 Add Abstract* classes that 
   - wrap the old API
