@@ -194,8 +194,7 @@ inline void Permutation::initFromCycleString(const std::string& cycleString) {
 		seenIndices.set(first-1, 1);
 #endif
 		
-		while (!ss.eof()) {
-			ss >> temp;
+		while (ss >> temp) {
 #ifdef PERMLIB_DEBUGMODE
 			BOOST_ASSERT( !seenIndices[temp-1] );
 			seenIndices.set(temp-1, 1);

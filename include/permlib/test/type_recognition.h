@@ -342,7 +342,7 @@ GroupType* TypeRecognition<PERM,TRANSVERSAL>::largeSymmetricDiagonalSubgroup(std
 		orbits.push_back(orbit);
 	}
 	
-	unsigned long int orbitGCD = orbits.front()->size();
+	size_t orbitGCD = orbits.front()->size();
 	BOOST_FOREACH(const OrbitPtr& orbit, orbits) {
 		orbitGCD = boost::math::gcd(orbitGCD, orbit->size());
 	}
