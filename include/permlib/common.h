@@ -37,7 +37,7 @@
 #include <cstdlib>
 #include <vector>
 
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#if __cplusplus < 201103L
 namespace std {
 	/// copies elements of (begin to end) to destBegin if they match the given predicate
 	/**
