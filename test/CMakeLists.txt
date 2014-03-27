@@ -9,5 +9,5 @@ set(executables test-base test-trans test-generators test-partition test-permuta
 foreach(_exec ${executables})
   add_executable (${_exec} "${_exec}.cpp")
   add_test(${_exec} ${_exec})
-  target_link_libraries(${_exec} boost_unit_test_framework-mt)
+  target_link_libraries(${_exec} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 endforeach(_exec)
