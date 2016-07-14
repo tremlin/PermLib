@@ -29,7 +29,6 @@
 //
 // ---------------------------------------------------------------------------
 
-
 #define BOOST_TEST_DYN_LINK 
 #define BOOST_TEST_MODULE Backtrack search test - set stabilization and set images
 #include <boost/test/unit_test.hpp>
@@ -42,6 +41,7 @@
 #include <permlib/bsgs.h>
 #include <permlib/construct/schreier_sims_construction.h>
 #include <permlib/generator/bsgs_generator.h>
+#include <permlib/generator/bsgs_random_generator.h>
 #include <permlib/transversal/schreier_tree_transversal.h>
 #include <permlib/construct/schreier_sims_construction.h>
 #include <permlib/change/conjugating_base_change.h>
@@ -117,15 +117,25 @@ void checkSetImage(const GroupInformation& info, unsigned int setSize, unsigned 
 	
 	typedef typename TRANSVERSAL::PERMtype PERM;
 	BSGS<PERM, TRANSVERSAL> bsgs = ConstructDeterministic1<PERM, TRANSVERSAL>()(info);
-	
+
 	for (unsigned int i = 0; i < numberOfSets; ++i) {
 		std::set<dom_int> testSet1;
 		std::set<dom_int> testSet2;
 		while (testSet1.size() < setSize) {
 			testSet1.insert(randomInt(info.n));
 		}
-		while (testSet2.size() < setSize) {
-			testSet2.insert(randomInt(info.n));
+		if (i < numberOfSets / 2) {
+			while (testSet2.size() < setSize) {
+				testSet2.insert(randomInt(info.n));
+			}
+		} else {
+			// Ensure that for at least have of the test cases a mapping element
+			// exists.
+			BSGSRandomGenerator<PERM,TRANSVERSAL> bsgsRandomGen(bsgs);
+			const PERM p = bsgsRandomGen.next();
+			BOOST_FOREACH(const dom_int& x, testSet1) {
+				testSet2.insert(p / x);
+			}
 		}
 		
 		// change the base so that is prefixed by the set
@@ -172,7 +182,7 @@ BOOST_AUTO_TEST_CASE( setstabilizer )
 	typedef Permutation PERM;
 	// and Schreier tree transversals
 	typedef SchreierTreeTransversal<PERM> TRANSVERSAL;
-	
+
 	checkStabilizer<TRANSVERSAL>(info_testThesis, 3, 10);
 	checkStabilizer<TRANSVERSAL>(info_1997, 3, 10);
 	checkStabilizer<TRANSVERSAL>(info_cyclic10, 2, 30);
@@ -186,17 +196,18 @@ BOOST_AUTO_TEST_CASE( setimage )
 	typedef Permutation PERM;
 	// and Schreier tree transversals
 	typedef SchreierTreeTransversal<PERM> TRANSVERSAL;
-	
-	checkSetImage<TRANSVERSAL>(info_testThesis, 2, 10);
-	checkSetImage<TRANSVERSAL>(info_testThesis, 3, 10);
-	checkSetImage<TRANSVERSAL>(info_testThesis, 5, 10);
-	checkSetImage<TRANSVERSAL>(info_1997, 2, 10);
-	checkSetImage<TRANSVERSAL>(info_1997, 3, 10);
-	checkSetImage<TRANSVERSAL>(info_1997, 5, 10);
+	checkSetImage<TRANSVERSAL>(info_testThesis, 1, 20);
+	checkSetImage<TRANSVERSAL>(info_testThesis, 2, 30);
+	checkSetImage<TRANSVERSAL>(info_testThesis, 3, 30);
+	checkSetImage<TRANSVERSAL>(info_testThesis, 5, 30);
+	checkSetImage<TRANSVERSAL>(info_1997, 1, 30);
+	checkSetImage<TRANSVERSAL>(info_1997, 2, 30);
+	checkSetImage<TRANSVERSAL>(info_1997, 3, 30);
+	checkSetImage<TRANSVERSAL>(info_1997, 5, 30);
 	checkSetImage<TRANSVERSAL>(info_cyclic10, 2, 30);
 	checkSetImage<TRANSVERSAL>(info_S6_3, 4, 30);
-	checkSetImage<TRANSVERSAL>(info_e6, 4, 15);
-	checkSetImage<TRANSVERSAL>(info_e6, 11, 3);
+	checkSetImage<TRANSVERSAL>(info_e6, 4, 30);
+	checkSetImage<TRANSVERSAL>(info_e6, 11, 10);
 }
 
 BOOST_AUTO_TEST_CASE( vectorstabilizer_group )

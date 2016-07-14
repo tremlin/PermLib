@@ -227,8 +227,16 @@ typename BaseSearch<BSGSIN,TRANSRET>::PERM::ptr RBase<BSGSIN,TRANSRET>::searchCo
 	
 	unsigned int completed = partitions.size();
 	//BSGS<PERM,TRANS> groupL(groupK);
-	PERM identH(this->m_bsgs.n);
-	search(partitions.begin(), m_partition2, PERM(this->m_bsgs.n), &identH, 0, 0, completed, groupK, groupL);
+	PERM t(this->m_bsgs.n);
+	PERM t2(this->m_bsgs.n);
+	BOOST_ASSERT(partitions.begin() != partitions.end());
+	const Partition& sigma = *((*(partitions.begin())).first);
+	if (sigma.fixPointsSize()) {
+		updateMappingPermutation(this->m_bsgs, sigma, this->m_partition2, t);
+		if (this->m_bsgs2)
+			updateMappingPermutation(*this->m_bsgs2, sigma, this->m_partition2, t2);
+	}
+	search(partitions.begin(), m_partition2, t, &t2, 0, 0, completed, groupK, groupL);
 	
 	return BaseSearch<BSGSIN,TRANSRET>::m_lastElement;
 }
@@ -268,10 +276,10 @@ unsigned int RBase<BSGSIN,TRANSRET>::search(PartitionIt pIt, Partition &pi, cons
 			this->m_statNodesPrunedCosetMinimality += s;
 			break;
 		}
-		
+
 		--s;
 		RefinementPtr ref2 = *rIt;
-		
+
 		const unsigned int oldFixPointsSize = pi.fixPointsSize();
 		PERMLIB_DEBUG(std::cout << "  refinement from " << pi << std::endl;)
 		const unsigned int strictRefinement = ref2->apply2(pi, *tForRefinement);
