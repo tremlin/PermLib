@@ -183,10 +183,18 @@ BOOST_AUTO_TEST_CASE( setstabilizer )
 	// and Schreier tree transversals
 	typedef SchreierTreeTransversal<PERM> TRANSVERSAL;
 
+	checkStabilizer<TRANSVERSAL>(info_testThesis, 1, 10);
+	checkStabilizer<TRANSVERSAL>(info_testThesis, 2, 10);
 	checkStabilizer<TRANSVERSAL>(info_testThesis, 3, 10);
+	checkStabilizer<TRANSVERSAL>(info_1997, 1, 10);
+	checkStabilizer<TRANSVERSAL>(info_1997, 2, 10);
 	checkStabilizer<TRANSVERSAL>(info_1997, 3, 10);
+	checkStabilizer<TRANSVERSAL>(info_cyclic10, 1, 30);
 	checkStabilizer<TRANSVERSAL>(info_cyclic10, 2, 30);
+	checkStabilizer<TRANSVERSAL>(info_S6_3, 2, 30);
 	checkStabilizer<TRANSVERSAL>(info_S6_3, 4, 30);
+	checkStabilizer<TRANSVERSAL>(info_e6, 1, 15);
+	checkStabilizer<TRANSVERSAL>(info_e6, 2, 15);
 	checkStabilizer<TRANSVERSAL>(info_e6, 4, 15);
 }
 
@@ -208,6 +216,11 @@ BOOST_AUTO_TEST_CASE( setimage )
 	checkSetImage<TRANSVERSAL>(info_S6_3, 4, 30);
 	checkSetImage<TRANSVERSAL>(info_e6, 4, 30);
 	checkSetImage<TRANSVERSAL>(info_e6, 11, 10);
+	checkSetImage<TRANSVERSAL>(info_cov1075, 3, 20);
+	checkSetImage<TRANSVERSAL>(info_metric5, 1, 30);
+	checkSetImage<TRANSVERSAL>(info_metric5, 2, 30);
+	checkSetImage<TRANSVERSAL>(info_metric5, 3, 30);
+	checkSetImage<TRANSVERSAL>(info_metric5, 4, 30);
 }
 
 BOOST_AUTO_TEST_CASE( vectorstabilizer_group )
