@@ -41,7 +41,7 @@
 #include <boost/foreach.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/utility.hpp>
+#include <boost/next_prior.hpp>
 
 #include <permlib/bsgs_core.h>
 

@@ -136,7 +136,7 @@ AbstractPermutationGroup* AbstractBSGS<TRANS>::setStabilizer(const std::vector<d
 	// start the search
 	boost::shared_ptr<PermutationGroup> stabilizer(new PermutationGroup(copy.n));
 	backtrackSearch.search(*stabilizer);
-	return new AbstractBSGS<TRANS>(stabilizer, m_support);
+	return new AbstractBSGS<TRANS>(stabilizer, bool(m_support));
 }
 
 template <class TRANS>

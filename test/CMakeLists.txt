@@ -1,4 +1,4 @@
-find_package(Boost 1.34.1 REQUIRED unit_test_framework)
+find_package(Boost 1.67 REQUIRED unit_test_framework)
 
 include_directories(../include)
 

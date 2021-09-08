@@ -40,7 +40,7 @@
 #include <permlib/prime_helper.h>
 
 #include <boost/foreach.hpp>
-#include <boost/math/common_factor_rt.hpp>
+#include <boost/integer/common_factor_rt.hpp>
 #include <cmath>
 #include <algorithm>
 
@@ -195,7 +195,7 @@ GiantTestBase::GiantGroupType GiantTest<PERM>::determineGiantType(double eps, un
 				for (unsigned int k = 0; k < cycleLength.size(); ++k) {
 					if (j == k)
 						continue;
-					if (boost::math::gcd(cycleLength[j], cycleLength[k]) != 1) {
+					if (boost::integer::gcd(cycleLength[j], cycleLength[k]) != 1) {
 						isCoprime = false;
 						break;
 					}
