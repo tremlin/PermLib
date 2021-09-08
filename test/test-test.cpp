@@ -33,7 +33,7 @@
 #define BOOST_TEST_DYN_LINK 
 #define BOOST_TEST_MODULE group test tests
 #include <boost/test/unit_test.hpp>
-#include <boost/test/output_test_stream.hpp> 
+#include <boost/test/tools/output_test_stream.hpp>
 using boost::test_tools::output_test_stream;
 
 #include <permlib/permutation.h>

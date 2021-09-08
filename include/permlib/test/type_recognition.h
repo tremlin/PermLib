@@ -44,7 +44,7 @@
 #include <permlib/permlib_api.h>
 
 #include <boost/shared_ptr.hpp>
-#include <boost/math/common_factor_rt.hpp>
+#include <boost/integer/common_factor_rt.hpp>
 #include <iostream>
 
 
@@ -344,7 +344,7 @@ GroupType* TypeRecognition<PERM,TRANSVERSAL>::largeSymmetricDiagonalSubgroup(std
 	
 	size_t orbitGCD = orbits.front()->size();
 	BOOST_FOREACH(const OrbitPtr& orbit, orbits) {
-		orbitGCD = boost::math::gcd(orbitGCD, orbit->size());
+		orbitGCD = boost::integer::gcd(orbitGCD, orbit->size());
 	}
 	
 	GroupType* lastType = 0;
